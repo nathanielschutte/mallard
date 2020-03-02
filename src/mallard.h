@@ -10,6 +10,8 @@
 
 #define MAX_BYTES 10000
 
+enum Algorithm {FIRST_FIT};
+
 char *memory;
 
 struct block {
@@ -21,7 +23,11 @@ struct block {
 struct block *free_memory;
 
 int set_memory(char* mem_set, size_t max_bytes);
+
 void split(struct block *fit_slot, size_t size);
-void *mallard(size_t byte_num);
+
+void * mallard(size_t num_bytes);
+
 void merge();
+
 void free(void *ptr);
