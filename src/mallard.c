@@ -12,7 +12,7 @@
  * Initialize mallard with free block of memory from mem_set, max size max_bytes
  * This must be done before using any other function
 */
-int set_memory(char* mem_set, size_t max_bytes) {
+int setMemory(char* mem_set, size_t max_bytes) {
     if(max_bytes > MAX_BYTES) {
         return -1;
     }
@@ -26,8 +26,8 @@ int set_memory(char* mem_set, size_t max_bytes) {
     free_memory->b_free = 1;
     free_memory->m_next = NULL;
 
-    printf("Total Bytes:\t%u\nHeader Size:\t%u\nMemory Bytes:\t%u\nBlock Address:\t%x\n",
-           max_bytes, sizeof(struct block), free_memory->b_size, (unsigned int) memory);
+    printf("Total Bytes:\t%u\nHeader Size:\t%u\nMemory Bytes:\t%u\nBlock Address:\t0x%x\n",
+           max_bytes, sizeof(struct block), free_memory->b_size, (void *) free_memory);
 
     return 0;
 }
@@ -77,7 +77,29 @@ void * mallard(size_t num_bytes) {
     // move forward while: slot too small, slot already allocated, still more slots to go
     while((curr->b_size < num_bytes || (curr->b_free == 0)) && (curr->m_next != NULL)) {
         curr = curr->m_next;
+    }
 
-        
+    return result;
+}
+
+
+/**
+ * Print all blocks to console
+ * 0x00 [FREE/ALOC] bytes
+*/
+void printAllBlocks() {
+    struct block *curr = free_memory;
+    if(!(free_memory->b_size)) {
+        printf("Memory not set");
+        return;
+    }
+
+    while(curr != NULL) {
+        if(curr->b_free)
+            printf("0x%x  [FREE] %u", (void *) curr, curr->b_size);
+        else
+            printf("0x%x [ALLOC] %u", (void *) curr, curr->b_size);
+
+        curr = curr->m_next;
     }
 }

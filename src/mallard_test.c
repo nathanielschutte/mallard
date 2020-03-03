@@ -16,7 +16,12 @@ int main(int argc, char** argv) {
     int exit_code = 0; // for multiple test uses
 
     printf("MALLARD dynamic memory allocation test...\n");
-    exit_code = set_memory(test_memory, block_bytes);
+    if(setMemory(test_memory, block_bytes) < 0) {
+        return -1;
+    }
+
+    printf("\nInitial:");
+    printAllBlocks();
 
     return exit_code; // some errors may allow code to continue to end
 }
