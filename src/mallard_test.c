@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
         return -1;
     }
 
-    printf("\nInitial:");
+    printf("\nInitial:\n");
     printAllBlocks();
 
     return exit_code; // some errors may allow code to continue to end

@@ -74,7 +74,6 @@ void * mallard(size_t num_bytes) {
     struct block *curr;
     curr = free_memory; // begin
 
-    // move forward while: slot too small, slot already allocated, still more slots to go
     while((curr->b_size < num_bytes || (curr->b_free == 0)) && (curr->m_next != NULL)) {
         curr = curr->m_next;
     }
@@ -96,9 +95,9 @@ void printAllBlocks() {
 
     while(curr != NULL) {
         if(curr->b_free)
-            printf("0x%x  [FREE] %u", (void *) curr, curr->b_size);
+            printf("0x%x  [FREE] %u\n", (unsigned int) curr, curr->b_size);
         else
-            printf("0x%x [ALLOC] %u", (void *) curr, curr->b_size);
+            printf("0x%x [ALLOC] %u\n", (unsigned int) curr, curr->b_size);
 
         curr = curr->m_next;
     }

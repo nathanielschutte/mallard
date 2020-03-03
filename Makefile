@@ -4,12 +4,17 @@ SDIR=src
 BDIR=bin
 ODIR=obj
 EXC=mallard
+MKDIR=mkdir -p
 
-all: main
-	mkdir $(ODIR)
-	mkdir $(BDIR)
+all: main $(BDIR) $(ODIR)
 	mv *.o $(ODIR)
 	mv $(EXC) $(BDIR)
+
+$(BDIR):
+	$(MKDIR) $@
+
+$(ODIR):
+	$(MKDIR) $@
 
 main: *.o
 	$(CC) *.o -o $(EXC)
