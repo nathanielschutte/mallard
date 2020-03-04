@@ -1,8 +1,9 @@
 CC=gcc
 CFLAGS=-c -Wall -g -I src
 SDIR=src
-BDIR=bin
-ODIR=obj
+SUPERDIR=.
+BDIR=$(SUPERDIR)/bin
+ODIR=$(SUPERDIR)/obj
 EXC=mallard
 MKDIR=mkdir -p
 
